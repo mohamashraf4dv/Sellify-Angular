@@ -8,5 +8,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('ECommerce');
+  protected readonly title = signal('ECommerce App - Angular');
+
+  constructor() {
+  document.title = this.title();
+  }
 }
