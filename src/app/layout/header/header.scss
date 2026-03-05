@@ -74,71 +74,7 @@
     }
   }
 }
-.notification-container {
-  position: relative;
-  padding-bottom: 10px; // hover bridge
-  margin-bottom: -10px;
 
-  &:hover > .notification-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .notification-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 280px;
-    height: 400px;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    background: rgba(30, 41, 59, 0.98);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    padding: 8px;
-    list-style: none;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1100;
-    cursor: grab;
-    .notification-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px;
-      color: #fff;
-      font-size: 0.85rem;
-      border-radius: 8px;
-      transition: background 0.2s;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.08);
-      }
-      &:active {
-        cursor: grabbing;
-        background: rgba(255, 255, 255, 0.12);
-      }
-      i {
-        font-size: 1rem;
-        opacity: 0.7;
-      }
-
-      .message {
-        flex: 1;
-      }
-
-      .time {
-        font-size: 0.75rem;
-        color: #aaa;
-      }
-    }
-  }
-}
 .sign-in-btn{
         background: #fff;
 
