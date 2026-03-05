@@ -1,0 +1,29 @@
+.display-icon {
+  font-size: 80px;
+  height: 80px;
+  width: 80px;
+  color: rgba(30, 41, 59, 0.85); /* Adjust to your theme color */
+}
+
+/* Make sure Material fields take full width in the Bootstrap grid */
+.mat-mdc-form-field {
+  display: block;
+}
+
+/* Customizing the Flat Button height to match your login button */
+button[mat-flat-button] {
+  height: 50px;
+}
+.btn-submit{
+        background: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color:#fff;
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    &:hover:not(:disabled) {
+        background: rgba(30, 41, 59, 0.95);
+    }
+}
