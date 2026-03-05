@@ -1,4 +1,6 @@
-<mat-card class="product-card" appearance="outlined">
+<mat-card class="product-card" appearance="outlined" role="region" aria-label="Product card for Premium Shiba Edition">
+    <a routerLink="/product/id" style="cursor: pointer; text-decoration: none;" aria-label="View Product Details">
+
   <div class="image-container">
     <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Product Image">
     @if(true){
@@ -12,6 +14,7 @@
     <mat-card-title class="product-title">Premium Shiba Edition</mat-card-title>
     <mat-card-subtitle class="price-tag">$100.00</mat-card-subtitle>
   </mat-card-header>
+    </a>
 
   <mat-card-content>
     <div class="stock-container">
@@ -28,7 +31,9 @@
     [value]="(stockCount / totalInitialStock) * 100"
     [color]="stockCount < 10 ? 'warn' : 'primary'">
   </mat-progress-bar>
+
 </div>
+
     <div class="seller-info">
       <img [src]="'https://material.angular.dev/assets/img/examples/shiba1.jpg'" class="seller-avatar" alt="Seller">
       <div class="seller-details">

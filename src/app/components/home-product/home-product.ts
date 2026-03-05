@@ -5,9 +5,11 @@ import { MatIcon } from '@angular/material/icon';
 import { A11yModule } from "@angular/cdk/a11y";
 import { MatDivider } from '@angular/material/divider';
 import {MatProgressBar} from '@angular/material/progress-bar';
+import { NgClass } from "../../../../node_modules/@angular/common/types/_common_module-chunk";
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home-product',
-  imports: [MatCardModule, MatButtonModule, MatIcon, A11yModule, MatDivider, MatProgressBar],
+  imports: [MatCardModule, MatButtonModule, MatIcon, A11yModule, MatDivider, MatProgressBar,RouterLink],
   templateUrl: './home-product.html',
   styleUrl: './home-product.scss',
 })
