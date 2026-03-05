@@ -1,0 +1,43 @@
+.header{
+    color: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+.btn-submit{
+        background: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color:#fff;
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    &:hover:not(:disabled) {
+        background: rgba(30, 41, 59, 0.95);
+    }
+}
+
+.google-btn {
+    transition: all 0.3s ease;
+    border: 1px solid #dee2e6;
+    background-color: #fff;
+    color: #444;
+}
+
+.google-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+    transform: translateY(-1px);
+}
+
+.google-btn:active {
+    transform: translateY(0);
+}
+
+/* Optional: Make your primary submit button pop more if you haven't styled it */
+.btn-submit {
+    background: linear-gradient(45deg, #212529, #444);
+    color: white;
+    border: none;
+}
