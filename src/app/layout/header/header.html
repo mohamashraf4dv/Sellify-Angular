@@ -10,11 +10,12 @@
     <div class="ms-auto d-flex align-items-center gap-3">
 
       <!-- Search -->
+       @if(IsProductPage()){
       <form class="search-wrapper d-none d-md-block" role="search">
         <label for="search-input" class="visually-hidden">Search products</label>
         <input id="search-input" type="search" placeholder="Search products..." class="search-input px-3 py-2" aria-label="Search products">
       </form>
-
+    }
       <!-- Cart -->
       <button class="btn nav-icon-btn" aria-label="Shopping cart">
         <mat-icon>shopping_cart</mat-icon>
@@ -30,13 +31,13 @@
        </div>
 
       <!-- User Dropdown -->
-       @if(true){
+       @if(false){
         <app-user-header-profiler></app-user-header-profiler>
        }
          @else{
           <button class="btn btn-outline-light d-flex align-items-center sign-in-btn" aria-label="Sign in">
              <mat-icon>account_circle</mat-icon>
-             <a routerLink="" class="ms-2 sign-in-link">Sign In</a>
+             <a routerLink="/signin" class="ms-2 sign-in-link">Sign In</a>
           </button>
          }
     </div>
