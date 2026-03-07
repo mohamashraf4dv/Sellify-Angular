@@ -12,14 +12,15 @@ import { MatNativeDateModule } from '@angular/material/core';
   styleUrl: './register.scss',
 })
 export class Register {
+  private _fb= inject(FormBuilder);
+  
   IsSubmitting: boolean = false;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
 
   maxDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() - 18)); // 18 years ago
   minDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() - 100)); // 100 years ago
-  private fb= inject(FormBuilder);
-  protected registerForm = this.fb.group({
+  protected registerForm = this._fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],

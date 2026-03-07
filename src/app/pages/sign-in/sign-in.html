@@ -9,34 +9,38 @@
                             <h2 class="fw-black header">Login your account</h2>
                         </div>
 
-                        <form (submit)="onSubmit($event)">
+                        <form [formGroup]="_signInFormGroup" (submit)="onSubmit($event)">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control border-secondary-subtle" placeholder="Username" asp-for="Username">
-                                <label asp-for="Username" class="text-muted">Username</label>
+                                <input type="text" class="form-control border-secondary-subtle" placeholder="Username Or Email" formControlName="loginIdentifier" >
+                                <label class="text-muted">Username or Email</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control border-secondary-subtle" placeholder="Password" asp-for="Password">
-                                <label asp-for="Password" class="text-muted">Password</label>
+                                <input type="password" class="form-control border-secondary-subtle" placeholder="Password" formControlName="password">
+                                <label class="text-muted">Password</label>
                             </div>
 
                             <div class="form-check mb-5">
                                 <input class="form-check-input border-secondary-subtle"
                                        type="checkbox"
-                                       asp-for="rememberMe">
+                                       formControlName="persistence" 
+                                       id="rememberMe" >
                                 <label class="form-check-label text-muted"
                                        for="rememberMe">
                                     Remember me
                                 </label>
                             </div>
                                 <div class="d-grid mt-5">
-                                    <button type="submit" class="btn rounded-pill py-2 fw-bold fs-5 shadow btn-submit" [disabled]="IsSubmitting">
-                                        @if(IsSubmitting){
+                                    <button type="submit" class="btn rounded-pill py-2 fw-bold fs-5 shadow btn-submit" [disabled]="IsSubmitting() || !_signInFormGroup.valid">
+                                        @if(IsSubmitting()){
                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                             Signing in
                                         }@else{
                                             Sign in
                                         }
                                     </button>
+                                </div>
+                                 <div class="form-check my-2 text-danger text-center">
+                                    {{errorMessage()}}
                                 </div>
                         </form>
 
@@ -53,7 +57,7 @@
                     </div>
 
                     <div class="d-grid">
-                        <button type="button" class="btn btn-outline-dark rounded-pill py-2 fw-bold d-flex align-items-center justify-content-center shadow-sm google-btn" (click)="signInWithGoogle()" [disabled]="IsSubmitting">
+                        <button type="button" class="btn btn-outline-dark rounded-pill py-2 fw-bold d-flex align-items-center justify-content-center shadow-sm google-btn" (click)="signInWithGoogle()" [disabled]="IsSubmitting()">
                             <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google Logo" class="me-2" style="width: 20px;">
                             Continue with Google
                         </button>
