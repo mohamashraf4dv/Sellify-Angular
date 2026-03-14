@@ -7,9 +7,10 @@ import { MatDivider } from '@angular/material/divider';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import { NgClass } from "../../../../node_modules/@angular/common/types/_common_module-chunk";
 import { RouterLink } from '@angular/router';
+import { SellerInfo } from '../seller-info/seller-info';
 @Component({
   selector: 'app-home-product',
-  imports: [MatCardModule, MatButtonModule, MatIcon, A11yModule, MatDivider, MatProgressBar,RouterLink],
+  imports: [MatCardModule, MatButtonModule, MatIcon, A11yModule, MatDivider, MatProgressBar,RouterLink,SellerInfo],
   templateUrl: './home-product.html',
   styleUrl: './home-product.scss',
 })

@@ -1,1 +1,61 @@
-<p>product works!</p>
+<section class="product-container glass-effect">
+  <button class="btn-back" (click)="goBack()">
+    <i class="icon-arrow-left"></i> Back to Shop
+  </button>
+
+  <div class="product-grid">
+    <div class="gallery-section">
+      <div class="main-thumbnail glass-card">
+        <img [src]="product.images[selectedImageIndex()]" alt="Product Image">
+      </div>
+      <div class="carousel-nav">
+        @for (img of product.images; track $index) {
+          <div class="nav-item" 
+               [class.active]="selectedImageIndex() === $index"
+               (click)="selectedImageIndex.set($index)">
+            <img [src]="img">
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="info-section">
+      <!-- <span class="seller-tag">Seller: {{ product.seller }}</span>
+      <h1 class="product-title">{{ product.name }}</h1> -->
+      <app-seller-info [sellerInfo]="{img:'imgsrc',name:'moahmed',sold:200}"></app-seller-info>
+      <p class="price">{{ product.price | currency }}</p>
+      
+      <p class="description">{{ product.description }}</p>
+
+      <div class="purchase-controls glass-card">
+        <div class="quantity-picker">
+          <button (click)="updateQuantity(-1)">-</button>
+          <span>{{ quantity() }}</span>
+          <button (click)="updateQuantity(1)">+</button>
+        </div>
+        
+        <button class="btn-primary" [class.loading]="isAdding()" (click) ="addToCart()">
+          {{ isAdding() ? 'Adding...' : 'Add to Cart' }}
+        </button>
+      </div>
+
+      <div class="trust-badges">
+        <span><i class="icon-truck"></i> Fast Delivery</span>
+        <span><i class="icon-shield"></i> 2-Year Warranty</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-marquee glass-effect">
+    <div class="marquee-content">
+      @for (rev of product.reviews; track rev.user) {
+        <div class="review-card">
+          <p>"{{ rev.comment }}"</p>
+          <small>- {{ rev.user }}</small>
+        </div>
+      }
+    </div>
+  </div>
+
+  <app-review-form></app-review-form>
+</section>

@@ -1,0 +1,12 @@
+.seller-info {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    
+    .seller-avatar { width: 35px; height: 35px; border-radius: 50%; margin-right: 10px; }
+    .seller-details {
+      flex-grow: 1;
+      .seller-name { display: block; font-size: 0.85rem; font-weight: 500; }
+      .sales-count { font-size: 0.75rem; color: #777; }
+    }
+}

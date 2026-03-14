@@ -1,0 +1,100 @@
+$primary-indigo: #6366f1;
+$deep-slate: rgba(30, 41, 59, 0.85);
+
+.write-review-card {
+  margin-top: 40px;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+
+  h3 { font-weight: 700; color: $deep-slate; margin-bottom: 20px; }
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    
+    svg {
+      width: 32px;
+      height: 32px;
+      fill: #e2e8f0; // Unfilled color
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), fill 0.3s ease;
+    }
+
+    &.filled svg {
+      fill: #ffb300; // Classic warm gold
+      filter: drop-shadow(0 0 8px rgba(255, 179, 0, 0.4));
+    }
+
+    &:hover svg { transform: scale(1.2); }
+  }
+
+  .rating-label { font-size: 0.9rem; margin-left: 12px; color: #64748b; font-weight: 500; }
+}
+
+.input-group {
+  .glass-input {
+    width: 100%;
+    min-height: 120px;
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #e2e8f0;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: none;
+    transition: all 0.3s ease;
+    scrollbar-width: none;
+    &:focus {
+      outline: none;
+      border-color: $primary-indigo;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+  }
+
+  .input-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    width: 100%;
+
+    span { 
+      font-size: 0.85rem; color: #94a3b8; 
+       }
+    }
+
+    .submit-btn {
+      padding: 12px 28px;
+      border-radius: 10px;
+      background: $deep-slate;
+      color: white;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:disabled { opacity: 0.4; cursor: not-allowed; }
+      &:not(:disabled):hover { 
+        background: #0f172a; 
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+    }
+  }
+  .error { color: #ef4444; 
+    font-weight: bold;
+        }

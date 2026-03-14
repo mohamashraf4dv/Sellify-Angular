@@ -1,0 +1,38 @@
+<div class="write-review-card glass-panel">
+  <h3>Experience with this product</h3>
+  
+  <div class="star-rating">
+    @for (star of [1,2,3,4,5]; track star) {
+      <button 
+        type="button"
+        (mouseenter)="hoverRating.set(star)"
+        (mouseleave)="hoverRating.set(0)"
+        (click)="setRating(star)"
+        [class.filled]="(hoverRating() || rating()) >= star">
+        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      </button>
+    }
+    <span class="rating-label" [className]="rating()==0 ? 'error': ''">{{ rating() > 0 ? rating() + '/5 Stars' : 'Select a rating' }}</span>
+  </div>
+<form action="" [formGroup]="reviewForm" (submit)="submitReview($event)">
+
+  <div class="input-group">
+    <textarea 
+        formControlName="comment"
+      placeholder="What did you like or dislike?"
+      maxlength="501"
+      class="glass-input">
+    </textarea>
+    
+    <div class="input-footer">
+      <span [class.error]="isOverLimit()">{{ charCount() }}/500</span>
+      <button 
+        class="submit-btn" 
+        type="submit">
+        Post Review
+      </button>
+    </div>
+  </div>
+</form>
+
+</div>
