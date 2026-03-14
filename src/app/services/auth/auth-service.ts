@@ -8,7 +8,11 @@ import { environment } from '../../../environments/environment.development';
 export class AuthService {
   _httpClient:HttpClient =inject(HttpClient);
 
-  signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {
-    return this._httpClient.post(`${environment.url}/Authentication/login`, { loginIdentifier, password ,isPersistence})
+  // signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {
+  //   return this._httpClient.post(`${environment.url}/Authentication/login`, { loginIdentifier, password ,isPersistence})
+  // }
+
+    signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {
+    return this._httpClient.post(`${environment.url}/Authentication/test-login`, { loginIdentifier, password ,isPersistence},{withCredentials:true})
   }
 }

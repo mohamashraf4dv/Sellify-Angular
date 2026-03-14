@@ -46,8 +46,15 @@
     }
   }
 
-  .product-title { font-size: 1.2rem; font-weight: 600; margin-top: 8px; }
-  .price-tag { font-size: 1.1rem; color: #2e7d32; font-weight: 700; }
+  .product-title { 
+    font-size: 1.2rem;
+     font-weight: 600;
+     margin-top: 8px;
+     color: rgba(30, 41, 59, 0.85);
+    color:#6366f1; }
+  .price-tag { font-size: 1.1rem; color: #6366f1; font-weight: 700;
+     color: rgba(30, 41, 59, 0.85);
+   }
 
   .seller-info {
     display: flex;
@@ -71,7 +78,11 @@
     }
   }
 
-  .buy-button { border-radius: 8px; font-weight: 600; }
+  .buy-button { 
+    border-radius: 8px; 
+    font-weight: 600; 
+    background-color: rgba(30, 41, 59, 0.85);
+  }
 }
 .heart-danger {
   color: #ff0000;
