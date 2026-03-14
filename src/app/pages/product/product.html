@@ -20,8 +20,6 @@
     </div>
 
     <div class="info-section">
-      <!-- <span class="seller-tag">Seller: {{ product.seller }}</span>
-      <h1 class="product-title">{{ product.name }}</h1> -->
       <app-seller-info [sellerInfo]="{img:'imgsrc',name:'moahmed',sold:200}"></app-seller-info>
       <p class="price">{{ product.price | currency }}</p>
       
@@ -29,24 +27,25 @@
 
       <div class="purchase-controls glass-card">
         <div class="quantity-picker">
-          <button (click)="updateQuantity(-1)">-</button>
+          <button (click)="updateQuantity(-1)" class="btn btn-minus mx-2">-</button>
           <span>{{ quantity() }}</span>
-          <button (click)="updateQuantity(1)">+</button>
+          <button (click)="updateQuantity(1)" class="btn btn-plus mx-2 ">+</button>
         </div>
         
-        <button class="btn-primary" [class.loading]="isAdding()" (click) ="addToCart()">
-          {{ isAdding() ? 'Adding...' : 'Add to Cart' }}
+        <button class="btn buy-button mt-3" [class.loading]="isAdding()" (click) ="addToCart()">
+          {{ isAdding() ? 'Adding ' : 'Add to Cart' }}
+          <span [class.d-none]="!isAdding()" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         </button>
       </div>
 
       <div class="trust-badges">
-        <span><i class="icon-truck"></i> Fast Delivery</span>
-        <span><i class="icon-shield"></i> 2-Year Warranty</span>
+        <!-- <span><i class="icon-truck"></i> Fast Delivery</span> -->
+        <!-- <span><i class="icon-shield"></i> 2-Year Warranty</span> -->
       </div>
     </div>
   </div>
 
-  <div class="reviews-marquee glass-effect">
+  <!-- <div class="reviews-marquee glass-effect">
     <div class="marquee-content">
       @for (rev of product.reviews; track rev.user) {
         <div class="review-card">
@@ -55,7 +54,7 @@
         </div>
       }
     </div>
-  </div>
-
+  </div> -->
+  <app-product-details-review-card></app-product-details-review-card>
   <app-review-form></app-review-form>
 </section>

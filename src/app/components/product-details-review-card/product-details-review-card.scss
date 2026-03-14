@@ -1,0 +1,98 @@
+/* 1. The Outer Container - Acts as the window */
+.reviews-marquee {
+  overflow: hidden;
+  width: 100%;
+  padding: 20px 0;
+  position: relative;
+  /* Glassmorphism Effect */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+/* 2. The Moving Row */
+.marquee-content {
+  display: flex;
+  gap: 2rem;
+  width: max-content; /* Critical: keeps items in one long line */
+  animation: scroll 30s linear infinite;
+}
+
+/* Pause on hover so people can actually read the reviews! */
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+/* 3. The Individual Card */
+.review-card {
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0 0 auto;
+  max-width: 600px;
+  max-height: 300px;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+  scrollbar-width: none;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+.review-card p {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  color: #333; /* Adjust based on your background */
+}
+
+.review-card small {
+  display: block;
+  text-align: right;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+/* 4. The Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Moves exactly half-way */
+  }
+}
+
+
+.star-rating {
+  display: flex;
+  gap: 5px;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  cursor: pointer;
+  color: #ccc; /* Default empty color */
+  transition: color 0.2s ease-in-out, transform 0.1s;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+/* When the star is 'filled' based on the form value */
+.star.filled {
+  color: #ffca28; /* Gold color */
+  text-shadow: 0 0 5px rgba(255, 202, 40, 0.5);
+}
+
+/* Optional: Validation error style */
+.star-rating.ng-invalid.ng-touched {
+  border: 1px solid red;
+  border-radius: 4px;
+}
