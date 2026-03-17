@@ -1,5 +1,5 @@
-import { CurrencyPipe } from '@angular/common';
-import { Component, input, signal } from '@angular/core';
+import { CurrencyPipe, Location } from '@angular/common';
+import { Component, inject, input, signal } from '@angular/core';
 import { ReviewForm } from "../../components/review-form/review-form";
 import { SellerInfo } from '../../components/seller-info/seller-info';
 import { ProductDetailsReviewCard } from '../../components/product-details-review-card/product-details-review-card';
@@ -12,6 +12,7 @@ import { ProductDetailsReviewCard } from '../../components/product-details-revie
 })
 export class Product {
 
+  _location = inject(Location)
   // Route param (using withComponentInputBinding)
   id = input.required<string>();
   
@@ -46,6 +47,6 @@ export class Product {
     setTimeout(() => this.isAdding.set(false), 1500);
   }
   goBack(){
-
+    this._location.back();
   }
 }

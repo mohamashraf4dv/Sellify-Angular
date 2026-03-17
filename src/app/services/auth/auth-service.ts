@@ -15,4 +15,8 @@ export class AuthService {
     signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {
     return this._httpClient.post(`${environment.url}/Authentication/test-login`, { loginIdentifier, password ,isPersistence},{withCredentials:true})
   }
+
+      test():Observable<any> {
+    return this._httpClient.get(`${environment.url}/Product/test`,{withCredentials:true})
+  }
 }

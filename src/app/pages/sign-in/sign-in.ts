@@ -1,7 +1,8 @@
-import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Component, computed, effect, inject, OnDestroy, signal, WritableSignal } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
 import { AuthService } from '../../services/auth/auth-service';
 import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
+import { Subscriber, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,12 +10,14 @@ import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModu
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.scss',
 })
-export class SignIn {
+export class SignIn implements OnDestroy{
+
+  private router= inject(Router);
   private _authService: AuthService = inject(AuthService);
   private _formBuilder :FormBuilder= inject(FormBuilder);
-
-  IsSubmitting:WritableSignal<boolean> = signal(false);
-  errorMessage: WritableSignal<string> = signal("");
+  private _signInSubscriber!:Subscription;
+  protected IsSubmitting:WritableSignal<boolean> = signal(false);
+  protected errorMessage: WritableSignal<string> = signal("");
   protected _signInFormGroup= this._formBuilder.group(
     {
       loginIdentifier: ['',[Validators.required]],
@@ -30,21 +33,16 @@ export class SignIn {
       this.errorMessage.set("Invalid Input")
       console.log(this._signInFormGroup);
     this.IsSubmitting.set(false);
-
       return;
-
     }
     event.preventDefault();
-    this._authService.signInInternally(this._signInFormGroup.value.loginIdentifier??"",this._signInFormGroup.value.password??"",this._signInFormGroup.value.persistence??false).subscribe(
+    this._signInSubscriber =this._authService.signInInternally(this._signInFormGroup.value.loginIdentifier??"",this._signInFormGroup.value.password??"",this._signInFormGroup.value.persistence??false).subscribe(
       {
         next: (resolve)=>{
-          console.log(resolve)
-          console.log(`token:${resolve.data.token}`)
-          localStorage.setItem("bearer",resolve.data.token)
-          console.log(document.cookie);
+          sessionStorage.setItem("myacc","signedIn")
           this.IsSubmitting.set(false);
           this.errorMessage.set("");
-
+          this.router.navigate([''])
         },
         error: (err)=> {
           this.errorMessage.set(err.error.errorsKeyValues?.Credentials[0])
@@ -59,5 +57,8 @@ export class SignIn {
   signInWithGoogle(){
     // Implement Google Sign-In logic here
     console.log("Google Sign-In clicked");
+  }
+  ngOnDestroy(): void {
+    this._signInSubscriber?.unsubscribe();
   }
 }
