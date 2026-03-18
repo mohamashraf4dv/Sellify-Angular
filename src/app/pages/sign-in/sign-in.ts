@@ -39,7 +39,8 @@ export class SignIn implements OnDestroy{
     this._signInSubscriber =this._authService.signInInternally(this._signInFormGroup.value.loginIdentifier??"",this._signInFormGroup.value.password??"",this._signInFormGroup.value.persistence??false).subscribe(
       {
         next: (resolve)=>{
-          sessionStorage.setItem("myacc","signedIn")
+          localStorage.setItem("auth",resolve.data);
+          this._authService.userAccessToken= resolve.data;
           this.IsSubmitting.set(false);
           this.errorMessage.set("");
           this.router.navigate([''])

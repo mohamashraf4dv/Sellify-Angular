@@ -4,6 +4,8 @@ import { providePrimeNG } from 'primeng/config';
 import Material from '@primeuix/themes/material';
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { refreshTokenHandlerInterceptor } from './interceptor/refresh-token-handler-interceptor';
+import { bearerAdderInterceptor } from './core/auth/bearer-adder-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,7 +13,7 @@ export const appConfig: ApplicationConfig = {
      provideRouter(routes),
      provideHttpClient(
       withFetch(),
-      withInterceptors([])),
+      withInterceptors([refreshTokenHandlerInterceptor,bearerAdderInterceptor])),
       providePrimeNG({
         theme: {preset: Material}
       }),
