@@ -2,13 +2,13 @@
         <div class="user-menu-trigger d-flex align-items-center">
           <div class="user-info d-none d-sm-flex flex-column text-end me-3">
             <span class="welcome-text">Welcome back,</span>
-            <span class="user-name">Alex Rivera</span>
+            <span class="user-name">{{userData()?.name | titlecase}}</span>
           </div>
 
           <div class="avatar-wrapper">
             <!-- <img src="https://ui-avatars.com/api/?name=Blex+Eivera&background=6366f1&color=fff" 
                  alt="Avatar of Alex Rivera" class="user-avatar shadow-sm"> -->
-                 <span class="user-avatar shadow-sm bg-primary text-white p-2">AR</span>
+                 <div class="user-avatar shadow-sm bg-primary text-white p-2 avatar-chars">{{userImage()}}</div>
             <div class="online-indicator" aria-hidden="true"></div>
           </div>
         </div>

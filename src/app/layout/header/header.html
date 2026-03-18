@@ -23,7 +23,9 @@
       </button>
 
 <!-- Notifications -->
-      <app-user-header-notification></app-user-header-notification>
+      @if(userSignal()){
+        <app-user-header-notification></app-user-header-notification>
+      }
 
       <!-- Divider -->
        <div class="d-flex align-items-center">
@@ -31,8 +33,8 @@
        </div>
 
       <!-- User Dropdown -->
-       @if(false){
-        <app-user-header-profiler></app-user-header-profiler>
+       @if(userSignal()){
+        <app-user-header-profiler [userData]="userSignal()"></app-user-header-profiler>
        }
          @else{
           <button class="btn btn-outline-light d-flex align-items-center sign-in-btn" aria-label="Sign in" routerLink="/signin" >

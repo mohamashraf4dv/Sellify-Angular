@@ -9,6 +9,8 @@ import { UserHeaderProfiler } from "../../components/user/user-header-profiler/u
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { UserHeaderNotification } from "../../components/user/user-header-notification/user-header-notification";
 import { Location } from '@angular/common';
+import { AuthService } from '../../services/auth/auth-service';
+import { UserJwt } from '../../view-models/user-jwt/user-jwt';
 
 // Add these to your @Component 'imports' array (if standalone)
 // or your @NgModule 'imports' array.
@@ -31,9 +33,11 @@ import { Location } from '@angular/common';
 })
   export class Header implements OnInit {
 
-    private _location = inject(Location);
-    private _router = inject(Router);
+  private _location = inject(Location);
+  private _router = inject(Router);
+  private _authService = inject(AuthService)
 
+  protected userSignal = computed<UserJwt|null|undefined>(()=> this._authService.userSignal());
   private _isProductPage = signal<boolean>(false);
   protected IsProductPage = computed<boolean>(() => this._isProductPage()); 
 
