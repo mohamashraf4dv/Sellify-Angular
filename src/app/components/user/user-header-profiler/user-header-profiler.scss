@@ -67,7 +67,7 @@
       transform: translateY(10px);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1100;
-
+      cursor: pointer;
       .hover-menu-item {
         display: flex;
         align-items: center;

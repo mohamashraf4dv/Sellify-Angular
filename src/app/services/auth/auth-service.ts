@@ -10,9 +10,10 @@ import { UserJwt } from '../../view-models/user-jwt/user-jwt';
 })
 export class AuthService {
   _httpClient:HttpClient =inject(HttpClient);
+
   userAccessToken:WritableSignal<string|null>= signal(localStorage.getItem("auth"));
   userData:WritableSignal<any> = signal(this.userAccessToken() ?? localStorage.getItem("auth"))
-  userSignal = computed(()=>  (this.userData == null)?  null :jwtDecode<UserJwt>(this.userData()));
+  userSignal = computed(()=>  (this.userData() == null)?  null :jwtDecode<UserJwt>(this.userData()));
   // signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {
   //   return this._httpClient.post(`${environment.url}/Authentication/login`, { loginIdentifier, password ,isPersistence})
   // }
@@ -27,5 +28,11 @@ export class AuthService {
 
     refreshToken():Observable<any>{
       return this._httpClient.post(`${environment.url}/Token/refresh`,null,{withCredentials:true})
+    }
+    revokeToken():Observable<any>{
+          this.userAccessToken.set(null);
+          localStorage.removeItem("auth");
+          this.userData.set(null);
+      return this._httpClient.post(`${environment.url}/Token/revoke`,null,{withCredentials:true})
     }
 }

@@ -5,11 +5,11 @@ import { AuthService } from '../services/auth/auth-service';
 
 export const refreshTokenHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService)
-
+  console.log(req.url.endsWith("refresh"))
 return next(req).pipe(
   retry({ count: 2, delay: 2000 }), 
   catchError((error: HttpErrorResponse) => {
-    if (error.status === 401) {
+    if (error.status === 401 && req.url.endsWith("refresh") ) {
       return authService.refreshToken().pipe(
         tap(value => {
           authService.userAccessToken.set(value.token);
