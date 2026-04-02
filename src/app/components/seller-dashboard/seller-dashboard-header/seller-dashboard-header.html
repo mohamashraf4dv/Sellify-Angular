@@ -1,0 +1,46 @@
+<div class="container-fluid bg-light min-vh-screen p-0">
+  <div class="row g-0">
+    <main class="col-12 p-4 p-md-5">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+          <h1 class="fw-bold text-dark mb-1">Seller Dashboard</h1>
+          <p class="text-muted">Manage your Sellify inventory and track performance.</p>
+        </div>
+        <button class="btn btn-primary action-btn" routerLink="products">
+            <mat-icon>video_label</mat-icon>
+            <span>Products</span>
+        </button>
+
+        <button class="btn btn-outline-primary action-btn" routerLink="order">
+            <mat-icon>receipt_long</mat-icon>
+            <span>View Orders</span>
+        </button>
+
+        <button class="btn btn-outline-secondary action-btn" routerLink="inventory">
+            <mat-icon>inventory_2</mat-icon>
+            <span>Manage Inventory</span>
+        </button>
+      </div>
+      <div class="row g-4 mb-5">
+        @for (stat of stats(); track $index) {
+        <div class="col-md-3" >
+          <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h6 class="text-uppercase text-muted small fw-bold">{{stat.label}}</h6>
+                  <h3 class="fw-bold mb-0">{{stat.value}}</h3>
+                </div>
+                <div class="icon-shape bg-primary bg-opacity-10 text-primary rounded-3 px-3 py-2">
+                  <mat-icon>{{stat.icon}}</mat-icon> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+
+      </main>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<mat-card class="product-card" appearance="outlined" role="region" aria-label="Product card">
+
+  <div class="image-container position-relative">
+    <img mat-card-image [src]="productProp()?.imageURL" alt="Product Image" class="w-100">
+    <span class="category-badge bg-warning position-absolute top-0 start-0 m-2 badge">
+      New Arrival
+    </span>
+  </div> <mat-card-header>
+    <mat-card-title class="product-title">{{productProp()?.name}}</mat-card-title>
+    <mat-card-subtitle class="price-tag fw-bold ">
+      {{productProp()?.price | currency:'USD':'symbol':'1.2-2'}}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="stock-container mb-3">
+      <div class="stock-labels d-flex justify-content-between">
+        <span class="stock-status small">Default : Out of stock</span>
+      </div>
+      <mat-progress-bar 
+        mode="determinate" 
+        [value]="0"
+        color="warn"
+        class="rounded">
+      </mat-progress-bar>
+    </div>
+
+
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-actions align="end" class="p-2">
+    <button mat-icon-button title="Add to Wishlist" aria-label="Add to Wishlist">
+      <mat-icon>favorite_border</mat-icon>
+    </button>
+    <button mat-flat-button color="primary" class="buy-button">
+      <mat-icon class="me-1">shopping_cart</mat-icon>
+      ADD TO CART
+    </button>
+  </mat-card-actions>
+</mat-card>

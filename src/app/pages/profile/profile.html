@@ -1,3 +1,96 @@
-{{result() | json}}
-<hr/>
-{{data()}}
+<div class="profile-container glass-effect">
+  <mat-tab-group animationDuration="500ms">
+    
+    <mat-tab label="Account Details">
+      <div class="tab-content">
+        <!-- <div class="avatar-section">
+          <div class="image-wrapper">
+            <img [src]="profileImage()" alt="User Avatar" class="profile-img">
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileInput.click()">
+              <mat-icon>photo_camera</mat-icon>
+            </button>
+            <input #fileInput type="file" (change)="onImageUpload($event)" hidden>
+          </div>
+        </div> -->
+            <div class="avatar-section">
+          <div class="image-wrapper">
+            <img [src]="profileImage()" alt="Profile Photo" class="profile-img">
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileInput.click()">
+              <mat-icon>photo_camera</mat-icon>
+            </button>
+            <input type="file" #fileInput (change)="onImageUpload($event)" hidden>
+          </div>
+          </div>
+        <form [formGroup]="profileForm" class="profile-form">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="email" readonly>
+            <mat-icon matSuffix>lock</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="userName">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Phonenumber</mat-label>
+            <input matInput formControlName="phoneNumber">
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" [disabled]="profileForm.invalid" (click)="updateProfile()">
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Seller Hub">
+      <div class="tab-content center-content">
+        @if (sellerStatus() == 'Approved') {
+          <div class="status-badge success">
+            <mat-icon>verified</mat-icon>
+            <span>You are an active Seller</span>
+          </div>
+          <button mat-stroked-button color="accent" routerLink="/dashboard/seller">Go to Seller Dashboard</button>
+        } @else if(sellerStatus() == null || sellerStatus() == '') {
+          <div class="promo-section">
+            <h3>Start Earning Today</h3>
+            <p>List your products and reach thousands of customers.</p>
+            <button mat-flat-button color="warn" (click)="applyAsSeller()">
+              Apply as Seller
+            </button>
+          </div>
+        }
+        @else if(sellerStatus() == 'Pending') {
+          <div class="promo-section">
+            <h3>Your Request is already pending</h3>
+            <p>Please wait for approval then you will be able to list your products and reach thousands of customers.</p>
+          </div>
+        }
+        @else if(sellerStatus() == 'Rejected') {
+          <div class="promo-section">
+            <h3>Your Request is Rejected</h3>
+            <button mat-flat-button color="warn" (click)="applyAsSeller()">
+              Apply again!
+            </button>
+            
+          </div>
+        }
+      </div>
+    </mat-tab>
+
+
+
+  </mat-tab-group>
+</div>

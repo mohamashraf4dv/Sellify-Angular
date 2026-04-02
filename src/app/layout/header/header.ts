@@ -31,7 +31,7 @@ import { UserJwt } from '../../view-models/user-jwt/user-jwt';
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
 })
-  export class Header implements OnInit {
+  export class Header {
 
   private _location = inject(Location);
   private _router = inject(Router);
@@ -41,10 +41,6 @@ import { UserJwt } from '../../view-models/user-jwt/user-jwt';
   private _isProductPage = signal<boolean>(false);
   protected IsProductPage = computed<boolean>(() => this._isProductPage()); 
 
-  ngOnInit(): void {
-    this.updateStatus();
-    this._location.onUrlChange(() => this.updateStatus());
-  }
 
   private updateStatus() {
     this._isProductPage.set(this._router.url.includes('products'));

@@ -1,9 +1,10 @@
 import { computed, effect, inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import {jwtDecode} from 'jwt-decode'
 import { UserJwt } from '../../view-models/user-jwt/user-jwt';
+import { UserProfile } from '../../view-models/user-profile/user-profile';
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +15,14 @@ export class AuthService {
   userAccessToken:WritableSignal<string|null>= signal(localStorage.getItem("auth"));
   userData:WritableSignal<any> = signal(this.userAccessToken() ?? localStorage.getItem("auth"))
   userSignal = computed(()=>  (this.userData() == null)?  null :jwtDecode<UserJwt>(this.userData()));
-  // signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {
-  //   return this._httpClient.post(`${environment.url}/Authentication/login`, { loginIdentifier, password ,isPersistence})
-  // }
-  
-    signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {
-    return this._httpClient.post(`${environment.url}/Authentication/test-login`, { loginIdentifier, password ,isPersistence},{withCredentials:true})
-  }
+  dateNow= Date.now()
+  expirationInMs = computed(() => Number(this.userSignal()?.exp ?? 0) * 1000);
 
+  delay =  this.expirationInMs() - this.dateNow ;
+
+    signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {
+    return this._httpClient.post(`${environment.url}/Authentication/login`, { loginIdentifier, password ,isPersistence},{withCredentials:true})
+  }
       test():Observable<any> {
     return this._httpClient.get(`${environment.url}/Token/User`,{withCredentials:true})
   }
@@ -34,5 +35,12 @@ export class AuthService {
           localStorage.removeItem("auth");
           this.userData.set(null);
       return this._httpClient.post(`${environment.url}/Token/revoke`,null,{withCredentials:true})
+    }
+    getCurrentUser():Observable<UserProfile>{
+    return this._httpClient.get<UserProfile>(`${environment.url}/User`,{withCredentials:true})
+    }
+
+    UpdateCurrentUser(body:any):Observable<any>{
+    return this._httpClient.put<any>(`${environment.url}/User`,body,{withCredentials:true})
     }
 }

@@ -1,0 +1,93 @@
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+// Grid Container for the parent page
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 3 items per row
+  gap: 24px;
+  padding: 20px;
+
+  @media (max-width: 992px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.product-card {
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+  }
+
+  .image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    
+    img { object-fit: cover; height: 100%; width: 100%; }
+    
+    .category-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(var(--mat-primary-main-color), 0.9);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+  }
+
+  .product-title { 
+    display: block;
+    font-size: 1.2rem;
+     font-weight: 600;
+     margin-top: 8px;
+     color: rgba(30, 41, 59, 0.85);
+    color:#6366f1; 
+}
+  .price-tag { 
+    display: block;
+    font-size: 1.1rem;
+     color: #6366f1;
+     font-weight: 700;
+     color: rgba(30, 41, 59, 0.85);
+   }
+
+  .seller-info {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    
+    .seller-avatar { width: 35px; height: 35px; border-radius: 50%; margin-right: 10px; }
+    .seller-details {
+      flex-grow: 1;
+      .seller-name { display: block; font-size: 0.85rem; font-weight: 500; }
+      .sales-count { font-size: 0.75rem; color: #777; }
+    }
+
+  }
+    .rating {
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 12px;
+      mat-icon { font-size: 16px; width: 16px; height: 16px; color: #ffb300; margin-right: 4px; }
+      span { font-size: 0.8rem; font-weight: bold; }
+    }
+  .buy-button { 
+    border-radius: 8px; 
+    font-weight: 600; 
+    background-color: rgba(30, 41, 59, 0.85);
+  }
+}
+.heart-danger {
+  color: #ff0000;
+}

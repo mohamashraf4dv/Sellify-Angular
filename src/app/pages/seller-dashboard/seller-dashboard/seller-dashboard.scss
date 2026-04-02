@@ -1,0 +1,32 @@
+/* Modern Soft Shadows and Borders */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.08) !important;
+}
+
+.table thead th {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.icon-shape {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Custom background for the dashboard */
+.bg-light {
+  background-color: #f8f9fa !important;
+}

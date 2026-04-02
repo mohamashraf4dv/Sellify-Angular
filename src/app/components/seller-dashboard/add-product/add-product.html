@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <div class="row">
+  <div class="col-lg-7"> 
+
+  <div class="card p-5 shadow-sm">
+    <h2 class="mb-4">Add New Product</h2>
+    
+    <form (submit)="onSubmit($event)">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Product Name</label>
+            <input type="text" [formField]="productForm.name" class="form-control" placeholder="Enter name">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Price ($)</label>
+            <input type="number" [formField]="productForm.price" class="form-control" step="0.01" placeholder="0.00">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Image</label>
+            <input type="file" (change)="onImageUpload($event)" class="form-control" accept="image/*">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Description</label>
+            <textarea [formField]="productForm.description" class="form-control" rows="4" placeholder="Brief description..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="btn btn-primary px-4" [disabled]="productForm().invalid()">
+          Save Product
+        </button>
+        <button type="button" (click)="test()" class="btn btn-outline-secondary">Test Data</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <div class="col-lg-5">
+    <h3>Product Live Preview</h3>
+  <div class="border-top pt-4">
+    <app-seller-add-product-product-view [productProp]="productFormSignal()"></app-seller-add-product-product-view>
+  </div>
+  </div>
+</div>
+</div>

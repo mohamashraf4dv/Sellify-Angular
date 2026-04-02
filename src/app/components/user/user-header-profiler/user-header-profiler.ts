@@ -3,10 +3,11 @@ import { UserJwt } from '../../../view-models/user-jwt/user-jwt';
 import { TitleCasePipe } from '@angular/common';
 import { AuthService } from '../../../services/auth/auth-service';
 import { take, tap } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-header-profiler',
-  imports: [TitleCasePipe],
+  imports: [RouterLink,TitleCasePipe],
   templateUrl: './user-header-profiler.html',
   styleUrl: './user-header-profiler.scss',
 })
