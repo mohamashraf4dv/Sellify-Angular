@@ -1,0 +1,10 @@
+img {
+  border: 1px solid #eee;
+}
+
+button:hover {
+  background-color: #f8f9fa;
+  color:#a5a5a5;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}

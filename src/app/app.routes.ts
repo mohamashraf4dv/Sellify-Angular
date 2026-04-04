@@ -11,9 +11,12 @@ export const routes: Routes = [
     {path: 'profile', loadComponent: () => import('./pages/profile/profile').then(m => m.Profile)},
     {path:'dashboard/seller', loadComponent : () => import('./pages/seller-dashboard/seller-dashboard/seller-dashboard').then(m=>m.SellerDashboard)
         ,children:[
-            {path: '', redirectTo:'product',pathMatch:'full'},
+            {path: '', redirectTo:'inventory',pathMatch:'full'},
             {path:'inventory', loadComponent:()=> import('./components/seller-dashboard/inventory-manager/inventory-manager').then(m=>m.InventoryManager)},
+
+            //CLEAN IT UP LATER NOT USING THIS ANYMORE WE USE INVENTORY MANAGER INSTEAD
             {path:'products',loadComponent:()=> import('./components/seller-dashboard/seller-products/seller-products').then(m=>m.SellerProducts)},
+
             {path:'products/add',loadComponent:()=> import('./components/seller-dashboard/add-product/add-product').then(m=>m.AddProduct)},
             {path:'order',loadComponent:()=> import('./components/seller-dashboard/view-orders/view-orders').then(m=>m.ViewOrders)}
         ]

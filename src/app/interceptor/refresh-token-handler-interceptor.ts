@@ -7,6 +7,7 @@ export const refreshTokenHandlerInterceptor: HttpInterceptorFn = (req, next) => 
   const authService = inject(AuthService)
 return next(req).pipe(
   catchError((error: HttpErrorResponse) => {
+
     if (error.status === 401  ) {
         localStorage.removeItem("auth");
         authService.userData.set(null);

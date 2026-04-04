@@ -6,7 +6,21 @@
               <h5 class="fw-bold mb-0">Inventory Manager</h5>
               <div class="input-group w-50">
                 <span class="input-group-text bg-light border-0"><i class="bi bi-search text-muted"></i></span>
-                <input type="text" class="form-control bg-light border-0" placeholder="Search products...">
+                <input type="text" class="form-control bg-light border-0" placeholder="Search products..." (change)="searchProducts($event)">
+              </div>
+
+              <div class="d-flex justify-content-between">
+                  <button class="btn btn-primary action-btn d-flex align-items-center justify-content-center mx-2" routerLink="/dashboard/seller/products/add">
+                    <mat-icon>video_label</mat-icon>
+                    <span class="ms-2">Add Product</span>
+                  </button>
+                @if(canSaveChanges()){
+                <button class="btn btn-success btn-sm rounded-4" (click)="saveChanges()">
+                    <button class="btn btn-light btn-sm rounded-circle me-2 text-success shadow-sm"   >
+                        <mat-icon>check</mat-icon>
+                    </button> Save Changes
+                </button>
+            }
               </div>
             </div>
             <div class="table-responsive">
@@ -16,39 +30,117 @@
                     <th class="ps-4 border-0 text-muted small">PRODUCT</th>
                     <th class="border-0 text-muted small">PRICE</th>
                     <th class="border-0 text-muted small">QUANTITY</th>
-                    <th class="border-0 text-muted small">STATUS</th>
+                    <th class="border-0 text-muted small">IMAGES</th>
                     <th class="pe-4 border-0 text-muted small text-end">ACTIONS</th>
                   </tr>
                 </thead>
                 <tbody>
+                  @if(isLoading()){
+                    <tr>
+                      <td colspan="5" class="text-center py-5">
+                        <div class="d-flex flex-column align-items-center gap-3">
+                          <i class="bi bi-box-seam text-muted" style="font-size: 2rem;"></i>
+                          <p class="text-muted mb-0">Loading products...</p>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                  @else if(!products() || products().length === 0 ){
+                    <tr>
+                      <td colspan="5" class="text-center py-5">
+                        <div class="d-flex flex-column align-items-center gap-3">
+                          <i class="bi bi-box-seam text-muted" style="font-size: 2rem;"></i>
+                          <p class="text-muted mb-0">No products found. Start adding to your inventory!</p>
+                        </div>
+                      </td>
+                    </tr>
+                  }@else{
                 @for(p of products() ; track p.id){
                   <tr >
-                    <td class="ps-4 fw-semibold text-dark">{{p.name}}</td>
+                    <td class="ps-4 fw-semibold text-dark">
+                      @if(currentEditingProduct() && currentEditingProduct()?.id === p.id ){
+                        <input type="text" class="form-control form-control-sm" [value]="currentEditingProduct()?.name" (input)="currentEditingProduct()!.name = $event.target.value" />
+                      }@else{
+                       <div class="d-flex align-items-center gap-3">
+                      <img 
+                      [src]=" `${url}/${p.thumbnailSource}`" 
+                      alt="thumb"
+                      class="rounded"
+                      style="width:40px; height:40px; object-fit:cover;"
+                    />
+                      {{p.name}}
+                       </div>
+                      }
+                    </td>
+                    @if(currentEditingProduct() && currentEditingProduct()?.id === p.id ){
+                      <td>
+                        <input type="number"  class="form-control form-control-sm" [value]="currentEditingProduct()?.price" (input)="currentEditingProduct()!.price = $event.target.valueAsNumber " />
+                      </td>
+                    }
+                     @else{
                     <td>{{p.price | currency}}</td>
+                     }
                     <td>
                       <div class="d-flex align-items-center gap-3">
-                        <button class="btn btn-sm btn-outline-secondary rounded-circle px-2" >-</button>
-                        <span class="fw-bold">{{p.quantity}}</span>
-                        <button class="btn btn-sm btn-outline-secondary rounded-circle px-2">+</button>
+                        <button class="btn btn-sm btn-outline-secondary rounded-circle px-2"  (click)="decreaseStock(p)">-</button>
+                        <span class="fw-bold" [classList]="p.stock>5 ? 'text-success' : 'text-danger'">{{p.stock}}</span>
+                        <button class="btn btn-sm btn-outline-secondary rounded-circle px-2" (click)="increaseStock(p)">+</button>
                       </div>
                     </td>
                     <td>
-                      <span [class]="p.quantity > 5 ? 'badge rounded-pill bg-success-subtle text-success' : 'badge rounded-pill bg-danger-subtle text-danger'">
-                        {{ p.quantity > 5 ? 'Stable' : 'Low Stock' }}
+                      <span >
+
+      <!-- Images Row -->
+      <div class="d-flex align-items-center mt-1">
+
+        <!-- Existing Images -->
+        @for(img of p.productImages; track $index){
+          <img 
+            [src]=" isLocalImage(img) ? img : `${url}/${img}` " 
+            class="rounded me-1"
+            style="width:28px; height:28px; object-fit:cover;"
+          />
+        }
+
+        <!-- Add Icon (only if < 6 images) -->
+        @if( p.productImages.length < 6){
+        <button 
+          (click)="fileInput.click()"
+          class="btn btn-sm btn-light border rounded-circle p-0 d-flex align-items-center justify-content-center"
+          style="width:28px; height:28px;"
+        >
+          +
+        </button>
+        <input type="file" accept="image/*" hidden #fileInput (change)="onImageSelected($event, p)" />
+      }
+
+      </div>
+
                       </span>
                     </td>
                     <td class="pe-4 text-end">
-                    <button class="btn btn-light btn-sm rounded-circle me-2 text-primary shadow-sm" title="Edit">
+                      @if(isChanged(p)){  
+                    <button class="btn btn-light btn-sm rounded-circle me-2 text-danger shadow-sm" title="Cancel Changes" (click)="discardChanges(p)">
+                        <mat-icon>close_small</mat-icon>
+                    </button>
+                  }
+                  @if(!currentEditingProduct() || currentEditingProduct()?.id !== p.id){  
+                    <button class="btn btn-light btn-sm rounded-circle me-2 text-primary shadow-sm" title="Edit Product" (click)="editProduct(p)">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    
-                    <button class="btn btn-light btn-sm rounded-circle text-danger shadow-sm" title="Delete">
+                  }
+                    @else if(currentEditingProduct() && currentEditingProduct()?.id === p.id){
+                    <button class="btn btn-light btn-sm rounded-circle me-2 text-success shadow-sm" title="Save Changes" (click)="saveEdits()">
+                        <mat-icon>check</mat-icon>
+                    </button>
+                    }
+                    <button class="btn btn-light btn-sm rounded-circle text-danger shadow-sm" title="Archive">
                         <mat-icon>delete_outline</mat-icon>
                     </button>
                     </td>
                   </tr>
                 }
-
+              }
                 </tbody>
               </table>
             </div>

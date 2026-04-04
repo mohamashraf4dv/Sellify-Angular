@@ -15,4 +15,7 @@ export class SellerService {
   public addNewProduct(productData: any){
           return this._httpClient.post(`${environment.url}/Product`, productData, {withCredentials:true})
   }
+  public updateProducts(products: any[]){
+          return this._httpClient.put(`${environment.url}/Seller/Products`, products, {withCredentials:true})
+  }
 }
