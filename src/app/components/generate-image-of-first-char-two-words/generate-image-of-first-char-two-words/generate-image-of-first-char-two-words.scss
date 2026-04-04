@@ -1,0 +1,17 @@
+.avatar-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .user-avatar {
+          width: 45px;
+          height: 40px;
+          border-radius: 50%;
+          border: 2px solid #fff;
+
+        }
+    }
+.avatar-chars{
+  font-size: 0.8rem !important;
+}

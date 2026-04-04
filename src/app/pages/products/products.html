@@ -1,25 +1,10 @@
-
-
 <div class="container">
-    <div class="row my-3">
+    <div class="row my-3 g-3">
+        @for(product of products() ; track product.id){
         <div class="col-md-4 " >
-            <app-home-product></app-home-product>
-        </div>        <div class="col-md-4">
-            <app-home-product></app-home-product>
-        </div>        <div class="col-md-4">
-            <app-home-product></app-home-product>
+            <app-home-product [product]="product"></app-home-product>
         </div>
-                <div class="col-md-4">
-            <app-home-product></app-home-product>
-        </div>
-                <div class="col-md-4">
-            <app-home-product></app-home-product>
-        </div>
-                <div class="col-md-4">
-            <app-home-product></app-home-product>
-        </div>
-                <div class="col-md-4">
-            <app-home-product></app-home-product>
+    }
     </div>
 </div>
 <!-- <app-home-product></app-home-product> -->

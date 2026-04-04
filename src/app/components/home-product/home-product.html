@@ -1,8 +1,8 @@
-<mat-card class="product-card" appearance="outlined" role="region" aria-label="Product card for Premium Shiba Edition">
-    <a routerLink="/product/id" style="cursor: pointer; text-decoration: none;" aria-label="View Product Details">
+<mat-card class="product-card" appearance="outlined" role="region" [aria-label]="product()?.productName">
+    <a [routerLink]="`/product/${product()?.id}`" style="cursor: pointer; text-decoration: none;" aria-label="View Product Details">
 
   <div class="image-container">
-    <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Product Image">
+    <img mat-card-image [src]="`${url}/${product()?.thumbnailSource}`" [alt]="product()?.productName">
     @if(true){
         <span class="category-badge bg-success">Best Seller</span>
     }@else{
@@ -11,39 +11,36 @@
   </div>
 
   <mat-card-header>
-    <mat-card-title class="product-title">Premium Shiba Edition</mat-card-title>
-    <mat-card-subtitle class="price-tag">$100.00</mat-card-subtitle>
+    <mat-card-title class="product-title">{{ product()?.productName | titlecase }}</mat-card-title>
+    <mat-card-subtitle class="price-tag">${{ product()?.price?.toFixed(2) }}</mat-card-subtitle>
   </mat-card-header>
     </a>
 
   <mat-card-content>
     <div class="stock-container">
   <div class="stock-labels">
-    <span class="stock-status" [class.low-stock]="stockCount < 10" [class.text-danger]="stockCount === 0" [class.text-success]="stockCount > 0">
-      {{ stockCount > 0 ? 'In Stock' : 'Out of Stock' }}
+    <span class="stock-status" [class.low-stock]="(product()?.stock??0) < lowStockCount" [class.text-danger]="(product()?.stock??0) === 0" [class.text-success]="(product()?.stock??0) > 0">
+      {{ (product()?.stock??0) > 0 ? 'In Stock' : 'Out of Stock' }}
     </span>
-    <span class="stock-number" [class.text-danger]="stockCount < 10">
-      {{ stockCount }} units left
+    @if((product()?.stock??0) > 0){
+    <span class="stock-number" [class.text-danger]="(product()?.stock??0) < lowStockCount">
+      {{ (product()?.stock??0) }} units left
     </span>
+  }
   </div>
   <mat-progress-bar 
     mode="determinate" 
-    [value]="(stockCount / totalInitialStock) * 100"
-    [color]="stockCount < 10 ? 'warn' : 'primary'">
+    [value]="((product()?.stock??0) / totalInitialStock) * 100"
+    [color]="(product()?.stock??0) < lowStockCount? 'warn' : 'primary'">
   </mat-progress-bar>
 
 </div>
 
-    <div class="d-flex ">
-      <!-- <img [src]="'https://material.angular.dev/assets/img/examples/shiba1.jpg'" class="seller-avatar" alt="Seller">
-      <div class="seller-details">
-        <span class="seller-name">Shiba Store</span>
-        <span class="sales-count">100+ Sold</span> -->
-      <!-- </div> -->
-       <app-seller-info></app-seller-info>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+       <app-seller-info [sellerInfo]="sellerInfo()"></app-seller-info>
       <div class="rating">
         <mat-icon>star</mat-icon>
-        <span>4.5</span>
+        <span>{{ product()?.averageScore?.toFixed(1) }}</span>
       </div>
     </div>
   </mat-card-content>
@@ -52,11 +49,18 @@
 
   <mat-card-actions align="end">
     <button mat-icon-button  title="Add to Wishlist" (aria-label="Add to Wishlist") (click)="checked = !checked" >
-      <mat-icon [class]="checked ? 'heart-danger' : ''">{{checked?'favorite':'favorite_border'}}</mat-icon>
+      <mat-icon (click)="test()" [class]="checked ? 'heart-danger' : ''">{{checked?'favorite':'favorite_border'}}</mat-icon>
     </button>
-    <button mat-flat-button color="primary" class="buy-button">
+      @if(product()?.stock  == 0){
+      <button mat-flat-button  class="block-button" [disabled]="true">
+        <mat-icon>block</mat-icon>
+        OUT OF STOCK
+      </button>
+      }@else{
+      <button mat-flat-button color="primary" class="buy-button">
       <mat-icon >shopping_cart</mat-icon>
       ADD TO CART
-    </button>
+      </button>
+  }
   </mat-card-actions>
 </mat-card>

@@ -1,8 +1,18 @@
-<div class="seller-info">
-<img [src]="sellerInfo()?.img" class="seller-avatar" alt="Seller">
+<div class="seller-info d-flex align-items-center justify-content-start gap-2">
+  @if(sellerInfo()?.img?.endsWith('null')){
+<!-- <img [src]="sellerInfo()?.img?.endsWith('null') ? `https://ui-avatars.com/api/?name=${sellerInfo()?.name}&background=random` : sellerInfo()?.img" class="seller-avatar" alt="Seller"> -->
+<app-generate-image-of-first-char-two-words [name]="sellerInfo()?.name"></app-generate-image-of-first-char-two-words> 
+}@else {
+  <img [src]="sellerInfo()?.img" class="seller-avatar" alt="Seller">
+  }
   <div class="seller-details">
-        <span class="seller-name">{{sellerInfo()?.name}}</span>
-        <span class="sales-count">{{sellerInfo()?.sold}} Sold</span>
+        <span class="seller-name">{{sellerInfo()?.name | titlecase}}</span>
+        @if(sellerInfo()?.sold != null && (sellerInfo()?.sold ??0) > 0){
+        <span class="sales-count"> Sold {{sellerInfo()?.sold}} of {{sellerInfo()?.productName | titlecase}}</span>
+        }
+        @else{
+          <span class="sales-count"> Not a single unit of {{sellerInfo()?.productName | titlecase}} sold yet</span>
+        }
   </div> 
 
 </div>

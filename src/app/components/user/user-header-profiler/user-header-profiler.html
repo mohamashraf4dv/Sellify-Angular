@@ -10,7 +10,8 @@
             <img src="https://ui-avatars.com/api/?name=Blex+Eivera&background=6366f1&color=fff" 
                  alt="Avatar of Alex Rivera" class="user-avatar shadow-sm">
             }@else {
-                 <div class="user-avatar shadow-sm bg-primary text-white p-2 avatar-chars">{{userImage()}}</div>
+                 <!-- <div class="user-avatar shadow-sm bg-primary text-white p-2 avatar-chars">{{userImage()}}</div> -->
+                  <app-generate-image-of-first-char-two-words [name]="userData()?.name"></app-generate-image-of-first-char-two-words>
             }
 
             <div class="online-indicator" aria-hidden="true"></div>
