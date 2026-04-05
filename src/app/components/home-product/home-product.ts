@@ -27,7 +27,8 @@ export class HomeProduct {
 
   url = environment.fileDomainUrl;
   product = input<AllProducts>();
-
+  cartItem = computed(() => this._cartService.getCartItemById(this.product()?.id ?? ''));
+  isStockLimitReached = computed(() => this._cartService.isStockLimitReached(this.product()?.id ?? ''));
   sellerInfo = computed(()=>{
     return {
       img: `${this.url}/${this.product()?.sellerImage}`,
@@ -50,4 +51,5 @@ export class HomeProduct {
    console.log(this._cartService.cartItemsCount());
      // This will trigger the computed property to update the cart item count in the header
   }
+
 }

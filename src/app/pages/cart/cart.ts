@@ -21,6 +21,7 @@ export class Cart {
   // ];
   cartItems = computed<CartProductVm[]>(() => this._cartService.cartItems());
   cartItemsCount = computed(() => this._cartService.cartItemsCount());
+  
   // Calculate the grand total
   get totalAmount(): number {
     return this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0);
