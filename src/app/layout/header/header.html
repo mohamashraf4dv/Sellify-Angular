@@ -17,15 +17,16 @@
       </form>
     }
       <!-- Cart -->
-      <button class="btn nav-icon-btn" aria-label="Shopping cart">
+      <button class="btn nav-icon-btn" aria-label="Shopping cart" routerLink="/cart">
         <mat-icon>shopping_cart</mat-icon>
-        <span class="badge rounded-pill bg-mauve">0</span>
+        <span class="badge rounded-pill bg-mauve">{{ cartItemsCount() }}</span>
       </button>
 
 <!-- Notifications -->
-      @if(userSignal()){
+ <!-- this will be added later when the notification system is implemented -->
+      <!-- @if(userSignal() && false){
         <app-user-header-notification></app-user-header-notification>
-      }
+      } -->
 
       <!-- Divider -->
        <div class="d-flex align-items-center">

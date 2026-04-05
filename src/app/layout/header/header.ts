@@ -11,6 +11,7 @@ import { UserHeaderNotification } from "../../components/user/user-header-notifi
 import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth/auth-service';
 import { UserJwt } from '../../view-models/user-jwt/user-jwt';
+import { CartService } from '../../services/cart/cart-service';
 
 // Add these to your @Component 'imports' array (if standalone)
 // or your @NgModule 'imports' array.
@@ -26,7 +27,6 @@ import { UserJwt } from '../../view-models/user-jwt/user-jwt';
     UserHeaderProfiler,
     RouterLink,
     UserHeaderNotification,
-    
 ],
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
@@ -36,10 +36,12 @@ import { UserJwt } from '../../view-models/user-jwt/user-jwt';
   private _location = inject(Location);
   private _router = inject(Router);
   private _authService = inject(AuthService)
+  private _cartService = inject(CartService);
 
   protected userSignal = computed<UserJwt|null|undefined>(()=> this._authService.userSignal());
   private _isProductPage = signal<boolean>(false);
   protected IsProductPage = computed<boolean>(() => this._isProductPage()); 
+  protected cartItemsCount = computed(() => this._cartService.cartItemsCount());
 
 
   private updateStatus() {

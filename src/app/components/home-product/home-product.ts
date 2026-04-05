@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
@@ -11,6 +11,8 @@ import { Product } from '../../view-models/product/product';
 import { AllProducts } from '../../view-models/get-all-products/get-all-products';
 import { environment } from '../../../environments/environment.development';
 import { TitleCasePipe } from '@angular/common';
+import { CartProductVm } from '../../view-models/cart-product-vm/cart-product-vm';
+import { CartService } from '../../services/cart/cart-service';
 @Component({
   selector: 'app-home-product',
   imports: [MatCardModule, MatButtonModule, MatIcon, A11yModule, MatDivider, MatProgressBar,RouterLink,SellerInfo,TitleCasePipe],
@@ -18,6 +20,7 @@ import { TitleCasePipe } from '@angular/common';
   styleUrl: './home-product.scss',
 })
 export class HomeProduct {
+  private readonly _cartService = inject(CartService);
   lowStockCount: number = 5; // You can adjust this as needed --> it will reflect the low stock status when the stock is below this number
   totalInitialStock: number = 100; // You can set this to the initial stock value for the product, it will be used to calculate the percentage for the progress bar
   checked: boolean = false;
@@ -33,7 +36,18 @@ export class HomeProduct {
       productName: this.product()?.productName
     }
   });
-  test(){
-    console.log(this.product());
+  addToCart(){
+    const cartProduct: CartProductVm = {
+      id: this.product()?.id || '',
+      name: this.product()?.productName || '',
+      price: this.product()?.price || 0,
+      quantity: this._cartService.getCartItemById(this.product()?.id ?? '')?.quantity || 1,
+      imageUrl: `${this.url}/${this.product()?.thumbnailSource}`,
+      stock: this.product()?.stock || 0
+    };
+    this._cartService.addToCart(cartProduct);
+    // console.log(this.product());
+   console.log(this._cartService.cartItemsCount());
+     // This will trigger the computed property to update the cart item count in the header
   }
 }

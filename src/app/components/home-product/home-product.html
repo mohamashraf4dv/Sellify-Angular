@@ -49,7 +49,7 @@
 
   <mat-card-actions align="end">
     <button mat-icon-button  title="Add to Wishlist" (aria-label="Add to Wishlist") (click)="checked = !checked" >
-      <mat-icon (click)="test()" [class]="checked ? 'heart-danger' : ''">{{checked?'favorite':'favorite_border'}}</mat-icon>
+      <mat-icon [class]="checked ? 'heart-danger' : ''">{{checked?'favorite':'favorite_border'}}</mat-icon>
     </button>
       @if(product()?.stock  == 0){
       <button mat-flat-button  class="block-button" [disabled]="true">
@@ -57,7 +57,7 @@
         OUT OF STOCK
       </button>
       }@else{
-      <button mat-flat-button color="primary" class="buy-button">
+      <button mat-flat-button color="primary" class="buy-button" (click)="addToCart()">
       <mat-icon >shopping_cart</mat-icon>
       ADD TO CART
       </button>

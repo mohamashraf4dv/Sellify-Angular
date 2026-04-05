@@ -1,0 +1,33 @@
+.cart-container {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .qty-label {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .checkout-card {
+    padding: 16px;
+    
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+
+      .total-price {
+        font-weight: bold;
+        color: #3f51b5;
+      }
+    }
+  }
+}
