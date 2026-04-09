@@ -5,5 +5,5 @@ export interface CartProductVm {
     quantity: number;
     stock: number;
     imageUrl: string;
-    // rowVersion:string;
+    rowVersion:string;
 }

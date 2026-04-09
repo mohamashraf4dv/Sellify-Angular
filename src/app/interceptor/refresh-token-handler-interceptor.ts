@@ -9,9 +9,9 @@ return next(req).pipe(
   catchError((error: HttpErrorResponse) => {
 
     if (error.status === 401  ) {
-        localStorage.removeItem("auth");
-        authService.userData.set(null);
-        authService.userAccessToken.set(null);
+        // localStorage.removeItem("auth");
+        // authService.userData.set(null);
+        // authService.userAccessToken.set(null);
       return authService.refreshToken().pipe(
         tap(value => {
           authService.userAccessToken.set(value.token);
@@ -25,7 +25,15 @@ return next(req).pipe(
         } )
     )
   }
-     return throwError(()=> error)
+     return throwError(()=> {
+      if(error.url?.endsWith('refresh') && error.status ===400){
+        localStorage.removeItem("auth");
+        authService.userData.set(null);
+        authService.userAccessToken.set(null);
+      }
+    // console.log(error);
+    // console.log("error in interceptor");
+    return error;})
   }
   
 ));

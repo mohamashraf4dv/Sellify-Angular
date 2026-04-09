@@ -14,4 +14,5 @@ export interface AllProducts {
     sellerImage:string,
     createdAt:Date,
     totalSold:number
+    rowVersion:string
 }

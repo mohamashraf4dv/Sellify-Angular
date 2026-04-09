@@ -42,4 +42,7 @@ export class CartService {
     const item = this.getCartItemById(productId);
     return item ? item.quantity >= item.stock : false;
   }
+  clearCart(){
+    this.cartItems.set([] as CartProductVm[]);
+  }
 }

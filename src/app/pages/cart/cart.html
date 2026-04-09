@@ -69,7 +69,7 @@
             <span class="h5 text-primary">{{ totalAmount | currency }}</span>
           </div>
           <button class="btn btn-primary w-100 btn-lg" 
-                  [disabled]="cartItems.length === 0"
+                  [disabled]="cartItemsCount() === 0"
                   (click)="submitPayment()">
             Proceed to Payment
           </button>

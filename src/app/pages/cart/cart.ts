@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CartProductVm } from '../../view-models/cart-product-vm/cart-product-vm';
 import { CartService } from '../../services/cart/cart-service';
 import { inject } from '@angular/core';
+import { OrderService } from '../../services/order/order-service';
 
 @Component({
   selector: 'app-cart',
@@ -12,6 +13,7 @@ import { inject } from '@angular/core';
 })
 export class Cart {
   private readonly _cartService = inject(CartService);
+  private readonly _orderService = inject(OrderService);
 
   displayedColumns: string[] = ['image', 'name', 'price', 'quantity', 'total', 'actions'];
   
@@ -21,7 +23,6 @@ export class Cart {
   // ];
   cartItems = computed<CartProductVm[]>(() => this._cartService.cartItems());
   cartItemsCount = computed(() => this._cartService.cartItemsCount());
-  
   // Calculate the grand total
   get totalAmount(): number {
     return this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -39,8 +40,30 @@ export class Cart {
   }
 
   submitPayment() {
-    console.log('Processing payment for: $', this.totalAmount);
-    alert('Proceeding to payment gateway...');
+    const order: { [key: string]: { quantity: number; price: number; } } = {};
+    const productsIds = [] as string[];
+    this.cartItems().forEach(item=>{ 
+      productsIds.push(item.id)
+      // return {productId:item.id,quantity: item.quantity , price:item.price, rowVersion:item.rowVersion}
+      order[item.id]= {price:item.price,quantity:item.quantity}
+    })
+    // Call the order service to place the order
+    console.log({order, productsIds});
+    // const orderSubscription = this._orderService.placeOrder({order, productsIds}).subscribe({
+    const orderSubscription = this._orderService.paymentIntent({order, productsIds}).subscribe({
+      next: (response) => {
+        console.log('Order placed successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error placing order:', error);
+      }
+      ,complete: () => {
+        console.log('Order placement process completed.');
+        this._cartService.clearCart();
+        orderSubscription.unsubscribe(); // Unsubscribe to prevent memory leaks
+      }
+    });
+
   }
 }
 
