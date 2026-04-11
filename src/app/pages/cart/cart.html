@@ -1,7 +1,11 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-lg-8">
+      @if(cartItemsCount() <=1){
+      <h4 class="mb-4">Shopping Cart ({{ cartItemsCount() }} item)</h4>
+      }@else{
       <h4 class="mb-4">Shopping Cart ({{ cartItemsCount() }} items)</h4>
+      }
       
       <div class="table-responsive">
         <table class="table align-middle">
@@ -66,9 +70,9 @@
           <hr>
           <div class="d-flex justify-content-between mb-4">
             <span class="h5">Total</span>
-            <span class="h5 text-primary">{{ totalAmount | currency }}</span>
+            <span class="h5 total-price">{{ totalAmount | currency }}</span>
           </div>
-          <button class="btn btn-primary w-100 btn-lg" 
+          <button class="btn buy-button w-100 btn-lg" 
                   [disabled]="cartItemsCount() === 0"
                   (click)="submitPayment()">
             Proceed to Payment

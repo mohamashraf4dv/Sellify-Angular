@@ -30,5 +30,10 @@ export class ProductService {
     return this._httpClient.get<GenericTypeResponse<GetAllProducts>>(`${environment.url}/Product`, { params });
   }
 
+  updateWishlistStatus(productId:string ){
+    const obj = {productId}
+    return this._httpClient.put(`${environment.url}/Wishlist`,obj, {withCredentials:true});
+  }
+
 }
 
