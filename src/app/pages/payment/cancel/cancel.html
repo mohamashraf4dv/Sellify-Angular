@@ -1,1 +1,20 @@
-<p>cancel works!</p>
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="card shadow-sm" style="max-width: 500px; width: 100%;">
+    <div class="card-body text-center p-5">
+      <div class="mb-4">
+        <i class="bi bi-x-circle text-danger" style="font-size: 4rem;"></i>
+      </div>
+      
+      <h2 class="card-title fw-bold">Payment Cancelled .. Will redirect to home in {{timeInSeconds()}}</h2>
+      <p class="card-text text-muted">
+        It looks like you canceled your payment process. Don't worry, your card was <strong>not charged</strong>.
+      </p>
+      
+      <div class="mt-4 d-grid gap-2">
+        <a routerLink="/" class="btn btn-link text-decoration-none">
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
