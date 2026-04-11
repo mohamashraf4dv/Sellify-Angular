@@ -4,6 +4,7 @@ import { CartProductVm } from '../../view-models/cart-product-vm/cart-product-vm
 import { CartService } from '../../services/cart/cart-service';
 import { inject } from '@angular/core';
 import { OrderService } from '../../services/order/order-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +15,7 @@ import { OrderService } from '../../services/order/order-service';
 export class Cart {
   private readonly _cartService = inject(CartService);
   private readonly _orderService = inject(OrderService);
-
+  private readonly _router = inject(Router);
   displayedColumns: string[] = ['image', 'name', 'price', 'quantity', 'total', 'actions'];
   
   // cartItems: CartProductVm[] = [
@@ -50,9 +51,10 @@ export class Cart {
     // Call the order service to place the order
     console.log({order, productsIds});
     // const orderSubscription = this._orderService.placeOrder({order, productsIds}).subscribe({
-    const orderSubscription = this._orderService.paymentIntent({order, productsIds}).subscribe({
+    const orderSubscription = this._orderService.getPaymentSessionUrl({order, productsIds}).subscribe({
       next: (response) => {
         console.log('Order placed successfully:', response);
+        window.location.href = response.data
       },
       error: (error) => {
         console.error('Error placing order:', error);

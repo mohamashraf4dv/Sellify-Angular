@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
+import { GenericResponse, GenericTypeResponse } from '../../view-models/generic-response/generic-response';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,9 +15,11 @@ export class OrderService {
     return this._httpClient.post(`${this.apiUrl}/order`, orderData);
   }
 
-    paymentIntent(orderData: any) {
-    // Here you would typically make an HTTP POST request to your backend API to place the order
-    const totalAmount = 100000;
-    return this._httpClient.get(`${this.apiUrl}/Payment/StripeSecret`, {params: {totalAmount}});
+    getPaymentSessionUrl(orderData: any) : Observable<GenericTypeResponse<string> > {
+    return this._httpClient.post<GenericTypeResponse<string>>(`${this.apiUrl}/order`, orderData);
+  }
+
+    finalizePaymentSession(sessionId: any) : Observable<GenericResponse> {
+    return this._httpClient.post<GenericResponse>(`${this.apiUrl}/order/success`, {sessionId});
   }
 }

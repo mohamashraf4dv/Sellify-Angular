@@ -23,6 +23,8 @@ export const routes: Routes = [
     },
     {path: 'register', loadComponent: () => import('./pages/register/register').then(m => m.Register)},
     {path: 'signin', loadComponent: () => import('./pages/sign-in/sign-in').then(m => m.SignIn)},
+    {path:'success',loadComponent:()=>import('./pages/payment/success/success').then(m=>m.Success)},
+    {path:'cancel',loadComponent:()=>import('./pages/payment/cancel/cancel').then(m=>m.Cancel)},
     {path: 'notfound', loadComponent: () => import('./pages/notfound/notfound').then(m => m.Notfound)},
     {path:"**", redirectTo: 'notfound'}
 ];
