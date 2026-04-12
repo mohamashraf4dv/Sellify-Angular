@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment.development';
 import { InventoryProducts } from '../../view-models/inventory-products/inventory-products';
 import { GenericTypeResponse } from '../../view-models/generic-response/generic-response';
 import { GetAllProducts } from '../../view-models/get-all-products/get-all-products';
+import { ProductDetailsVm } from '../../view-models/product-details-vm/product-details-vm';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,10 @@ export class ProductService {
       number: number
     }
     return this._httpClient.get<GenericTypeResponse<GetAllProducts>>(`${environment.url}/Product`, { params });
+  }
+
+  getProductById( id:string): Observable<GenericTypeResponse<ProductDetailsVm>> {
+    return this._httpClient.get<GenericTypeResponse<ProductDetailsVm>>(`${environment.url}/Product/${id}`);
   }
 
   updateWishlistStatus(productId:string ){

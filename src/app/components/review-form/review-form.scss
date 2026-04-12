@@ -98,3 +98,64 @@ $deep-slate: rgba(30, 41, 59, 0.85);
   .error { color: #ef4444; 
     font-weight: bold;
         }
+
+        $primary-indigo: #6366f1;
+$deep-slate: rgba(30, 41, 59, 0.85);
+
+// ... keep your existing styles ...
+
+.identity-toggle-container {
+  max-width: 320px;
+
+  .toggle-track {
+    position: relative;
+    display: flex;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+  }
+
+  .toggle-btn {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    transition: color 0.3s ease;
+    cursor: pointer;
+
+    &.active {
+      color: white;
+    }
+  }
+
+  .toggle-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: $deep-slate;
+    border-radius: 8px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+
+    &.slide-right {
+      transform: translateX(100%);
+      background: $primary-indigo; // Change color when anonymous for visual cue
+    }
+  }
+
+  .toggle-hint {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    padding-left: 4px;
+    transition: all 0.3s ease;
+  }
+}

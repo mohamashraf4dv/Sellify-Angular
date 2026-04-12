@@ -15,21 +15,21 @@ export class Products {
   _productService = inject(ProductService);
  productsResponse= toSignal(this._productService.getProducts());
  products = computed(() => this.productsResponse()?.data.products || [] as AllProducts[]);
- click$ = new Subject<string>()
+//  click$ = new Subject<string>()
 
- clickEffect = effect(()=>{
-    this.click$.pipe(switchMap(productId => this._productService.updateWishlistStatus(productId))).subscribe({
-    next: v=> console.log(v),
-    error: err=> console.log(err),
-    complete: ()=> console.log("completed")
-  })
- })
+//  clickEffect = effect(()=>{
+//     this.click$.pipe(switchMap(productId => this._productService.updateWishlistStatus(productId))).subscribe({
+//     next: v=> console.log(v),
+//     error: err=> console.log(err),
+//     complete: ()=> console.log("completed")
+//   })
+//  })
 
- updateProductWishlistStatus(){
-  this.click$.pipe(switchMap(productId => this._productService.updateWishlistStatus(productId))).subscribe({
-    next: v=> console.log(v),
-    error: err=> console.log(err),
-    complete: ()=> console.log("completed")
-  })
- }
+//  updateProductWishlistStatus(){
+//   this.click$.pipe(switchMap(productId => this._productService.updateWishlistStatus(productId))).subscribe({
+//     next: v=> console.log(v),
+//     error: err=> console.log(err),
+//     complete: ()=> console.log("completed")
+//   })
+//  }
 }

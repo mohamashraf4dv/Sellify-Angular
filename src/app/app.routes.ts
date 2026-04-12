@@ -4,7 +4,7 @@ export const routes: Routes = [
     {path: '', redirectTo: 'products', pathMatch: 'full'},
 
     {path: 'products', loadComponent: () => import('./pages/products/products').then(m => m.Products)},
-    {path: 'product/:id', loadComponent: () => import('./pages/product/product').then(m => m.Product)},
+    {path: 'product/:id', loadComponent: () => import('./pages/product-details/product-details/product-details').then(m => m.ProductDetails)},
 
     {path: 'cart', loadComponent: () => import('./pages/cart/cart').then(m => m.Cart)},
     {path:'wishlist', loadComponent: ()=> import('./pages/wishlist-products/wishlist-products/wishlist-products').then(wp=> wp.WishlistProducts)},

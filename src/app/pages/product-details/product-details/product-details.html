@@ -1,0 +1,92 @@
+<section class="product-container glass-effect">
+  <button class="btn-back" (click)="goBack()">
+    <i class="icon-arrow-left"></i> Back to Shop
+  </button>
+
+  @if(_productDetails() != undefined && _id() != undefined){
+  <div class="product-grid">
+    <div class="gallery-section">
+      <div class="main-thumbnail glass-card">
+        <img [src]="`${url}/${_productDetails()?.thumbnail}`" alt="Product Image">
+      </div>
+      <div class="carousel-nav">
+        <!-- @for (img of product.images; track $index) {
+          <div class="nav-item" 
+               [class.active]="selectedImageIndex() === $index"
+               (click)="selectedImageIndex.set($index)">
+            <img [src]="img">
+          </div>
+        } -->
+      </div>
+    </div>
+
+    <div class="info-section">
+      <!-- <app-seller-info [sellerInfo]="{img:'imgsrc',name:'moahmed',sold:200,productName: product.name}"></app-seller-info> -->
+       <h1 class="sellify-title">{{_productDetails()?.name}}</h1>
+      <p class="price">{{ _productDetails()?.price| currency }}</p>
+      
+      <p class="description">{{ _productDetails()?.description }}</p>
+
+      <div class="purchase-controls glass-card">
+        <div class="d-flex justify-content-between align-items-center">
+          @if(userSignal() != undefined || userSignal() != null){
+          <button mat-icon-button  title="Add to Wishlist" (aria-label="Add to Wishlist")   (click)="updateWishlistState()">
+            <mat-icon [class]="checked() ? 'heart-danger' : '' " >{{checked()?'favorite':'favorite_border'}}</mat-icon>
+          </button>
+            }
+
+            <div>
+                @if ( (_productDetails()?.stock|| 0)>0) {
+                    <span class="badge bg-success-subtle text-success "> {{_productDetails()?.stock}} In Stock</span>
+                      } @else {
+                    <span class="badge bg-danger-subtle text-danger">Out of Stock</span>
+                      }
+            </div>
+        <!-- <div class="quantity-picker">
+          <button (click)="updateQuantity(-1)" class="btn btn-minus mx-2">-</button>
+          <span>{{ quantity()}}</span>
+          <button (click)="updateQuantity(1)" class="btn btn-plus mx-2 ">+</button>
+        </div> -->
+        
+        <div>
+          <button mat-icon-button (click)="copyProductUrl()">
+            <mat-icon>link</mat-icon>
+          </button>
+        </div>
+        </div>
+
+        <button class="btn buy-button mt-3"  (click) ="addToCart()" [disabled]="canAddToCart()">
+           Add to Cart
+        </button>
+
+        
+      </div>
+
+      <div class="trust-badges">
+        <!-- <span><i class="icon-truck"></i> Fast Delivery</span> -->
+        <!-- <span><i class="icon-shield"></i> 2-Year Warranty</span> -->
+      </div>
+    </div>
+  </div>
+  <div class="reviews-marquee glass-effect">
+    <div class="marquee-content">
+      @for(review of _productDetails()?.getProductByIdReviewsDTO; track $index){
+
+        <app-product-details-review-card [review]="review" ></app-product-details-review-card>
+      }
+      </div>
+  </div>
+  <app-review-form [productId]="_id()!"></app-review-form>
+  }
+  <!-- <div class="reviews-marquee glass-effect">
+    <div class="marquee-content">
+      @for (rev of product.reviews; track rev.user) {
+        <div class="review-card">
+          <p>"{{ rev.comment }}"</p>
+          <small>- {{ rev.user }}</small>
+        </div>
+      }
+    </div>
+  </div> -->
+
+</section>

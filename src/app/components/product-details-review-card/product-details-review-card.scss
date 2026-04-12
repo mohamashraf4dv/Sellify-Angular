@@ -1,29 +1,3 @@
-/* 1. The Outer Container - Acts as the window */
-.reviews-marquee {
-  overflow: hidden;
-  width: 100%;
-  padding: 20px 0;
-  position: relative;
-  /* Glassmorphism Effect */
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-}
-
-/* 2. The Moving Row */
-.marquee-content {
-  display: flex;
-  gap: 2rem;
-  width: max-content; /* Critical: keeps items in one long line */
-  animation: scroll 30s linear infinite;
-}
-
-/* Pause on hover so people can actually read the reviews! */
-.marquee-content:hover {
-  animation-play-state: paused;
-}
 
 /* 3. The Individual Card */
 .review-card {
@@ -56,17 +30,6 @@
   font-weight: bold;
   opacity: 0.8;
 }
-
-/* 4. The Animation */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%); /* Moves exactly half-way */
-  }
-}
-
 
 .star-rating {
   display: flex;

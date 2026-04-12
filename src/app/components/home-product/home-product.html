@@ -54,11 +54,7 @@
   <mat-divider></mat-divider>
 
   <mat-card-actions align="end">
-    @if(userSignal() != undefined || userSignal() != null){
-    <button mat-icon-button  title="Add to Wishlist" (aria-label="Add to Wishlist")   (click)="updateWishlistState(product()?.id)">
-      <mat-icon [class]="checked() ? 'heart-danger' : ''">{{checked()?'favorite':'favorite_border'}}</mat-icon>
-    </button>
-    }
+
         <!-- @if(userSignal() != undefined || userSignal() != null){
     <button mat-icon-button  title="Add to Wishlist" (aria-label="Add to Wishlist") (click)="checked = !checked" >
       <mat-icon [class]="checked ? 'text-warning' : ''">{{checked?'bookmark':'bookmark_border'}}</mat-icon>

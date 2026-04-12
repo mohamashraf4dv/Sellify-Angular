@@ -1,16 +1,10 @@
-  <div class="reviews-marquee glass-effect">
-    <div class="marquee-content">
-      @for (rev of product.reviews; track rev.user) {
 
         <div class="review-card">
             <div class="star-rating-display">
                 @for (star of [1, 2, 3, 4, 5]; track star) {
-                <span class="star" [class.filled]="rev.rating >= star">★</span>
+                <span class="star" [class.filled]="review()?.stars">★</span>
                 }
             </div>
-            <p>"{{ rev.comment }}"</p>
-            <small>- {{ rev.user }}</small>
+            <p>"{{ review()?.review }}"</p>
+            <small>- {{ review()?.user | titlecase }}</small>
         </div>
-                                                    }
-    </div>
-  </div>
