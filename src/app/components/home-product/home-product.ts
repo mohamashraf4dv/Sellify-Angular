@@ -53,7 +53,7 @@ export class HomeProduct {
       quantity: this._cartService.getCartItemById(this.product()?.id ?? '')?.quantity || 1,
       imageUrl: `${this.url}/${this.product()?.thumbnailSource}`,
       stock: this.product()?.stock || 0,
-      rowVersion:this.product()?.rowVersion || ''
+      // rowVersion:this.product()?.rowVersion || ''
     };
     this._cartService.addToCart(cartProduct);
     // console.log(this.product());

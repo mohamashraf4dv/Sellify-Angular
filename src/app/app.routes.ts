@@ -7,7 +7,7 @@ export const routes: Routes = [
     {path: 'product/:id', loadComponent: () => import('./pages/product/product').then(m => m.Product)},
 
     {path: 'cart', loadComponent: () => import('./pages/cart/cart').then(m => m.Cart)},
-
+    {path:'wishlist', loadComponent: ()=> import('./pages/wishlist-products/wishlist-products/wishlist-products').then(wp=> wp.WishlistProducts)},
     {path: 'profile', loadComponent: () => import('./pages/profile/profile').then(m => m.Profile)},
     {path:'dashboard/seller', loadComponent : () => import('./pages/seller-dashboard/seller-dashboard/seller-dashboard').then(m=>m.SellerDashboard)
         ,children:[
