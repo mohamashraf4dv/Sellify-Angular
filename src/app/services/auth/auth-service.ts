@@ -17,7 +17,6 @@ export class AuthService {
   userSignal = computed(()=>  (this.userData() == null)?  null :jwtDecode<UserJwt>(this.userData()));
   dateNow= Date.now()
   expirationInMs = computed(() => Number(this.userSignal()?.exp ?? 0) * 1000);
-
   delay =  this.expirationInMs() - this.dateNow ;
 
     signInInternally(loginIdentifier: string, password: string,isPersistence:boolean):Observable<any> {

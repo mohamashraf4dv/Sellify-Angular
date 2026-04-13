@@ -104,3 +104,10 @@
     .bg-mauve{
       background-color: #6366f1 !important;
     }
+
+    .sellify-fav{
+        transition: color 500ms ease-in-out;
+      &:hover{
+        color: #6366f1 ;
+      }
+    }
