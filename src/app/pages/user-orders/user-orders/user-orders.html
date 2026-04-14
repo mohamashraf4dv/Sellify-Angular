@@ -1,0 +1,67 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-end mb-5">
+    <div>
+      <h2 class="fw-bold mb-1 sellify-color">Order History</h2>
+      <p class="text-muted small mb-0">Manage and track your recent purchases</p>
+    </div>
+    <span class="badge rounded-pill bg-dark px-3 py-2">{{ orders()?.length || 0 }} Orders</span>
+  </div>
+
+  @if(orders() != null) {
+    @for(order of orders(); track order.orderId) {
+      <div class="card border-0 shadow-sm overflow-hidden mb-5 order-card">
+        <div class="card-header border-0 py-3 px-4">
+          <div class="row align-items-center g-3">
+            <div class="col-6 col-md-3">
+              <label class="d-block text-uppercase ls-1 text-muted-custom mb-1">Date Placed</label>
+              <span class="fw-semibold sellify-color">{{ order.date | date:'longDate' }}</span>
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="d-block text-uppercase ls-1 text-muted-custom mb-1">Total Amount</label>
+              <span class="fw-bold sellify-color">{{ order.totalAmount | currency }}</span>
+            </div>
+            <div class="col-12 col-md-6 text-md-end">
+              <div class="d-inline-block text-md-end">
+                <label class="d-block text-uppercase ls-1 text-muted-custom mb-1">Order Reference</label>
+                <span class="font-monospace fw-medium text-uppercase">#{{ order.orderId }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+            <div class="status-indicator me-2"></div>
+            <span class="fw-bold text-success small text-uppercase tracking-wider">Payment Confirmed</span>
+          </div>
+
+          <div class="row g-4">
+            @for(item of order.items; track item.name) {
+              <div class="col-12 col-lg-6" >
+                <div class="d-flex align-items-center p-3 rounded-3 item-row">
+                  <div class="flex-shrink-0">
+                    <div class="product-img-wrapper shadow-sm rounded-3 overflow-hidden">
+                      <img [src]="`${url}/${item.productImage}`" 
+                           [alt]="item.name"
+                           class="img-fluid">
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-4">
+                    <h6 class="fw-bold mb-1 sellify-color">{{ item.name }}</h6>
+                    <div class="d-flex gap-3">
+                      <span class="text-muted small">Qty: <b class="text-dark">{{ item.quantity }}</b></span>
+                      <span class="text-muted small">Unit: <b class="text-dark">{{ item.price | currency }}</b></span>
+                    </div>
+                  </div>
+                  <div class="ms-auto">
+                     <button class="btn btn-link btn-sm text-decoration-none fw-semibold sellify-color" [routerLink]="`/product/${item.productId}`">View Product</button>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  }
+</div>

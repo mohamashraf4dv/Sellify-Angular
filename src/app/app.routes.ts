@@ -9,6 +9,7 @@ export const routes: Routes = [
     {path: 'cart', loadComponent: () => import('./pages/cart/cart').then(m => m.Cart)},
     {path:'wishlist', loadComponent: ()=> import('./pages/wishlist-products/wishlist-products/wishlist-products').then(wp=> wp.WishlistProducts)},
     {path: 'profile', loadComponent: () => import('./pages/profile/profile').then(m => m.Profile)},
+    {path:'orders',loadComponent:()=> import('./pages/user-orders/user-orders/user-orders').then(m=> m.UserOrders)},
     {path:'dashboard/seller', loadComponent : () => import('./pages/seller-dashboard/seller-dashboard/seller-dashboard').then(m=>m.SellerDashboard)
         ,children:[
             {path: '', redirectTo:'inventory',pathMatch:'full'},
@@ -18,7 +19,7 @@ export const routes: Routes = [
             {path:'products',loadComponent:()=> import('./components/seller-dashboard/seller-products/seller-products').then(m=>m.SellerProducts)},
 
             {path:'products/add',loadComponent:()=> import('./components/seller-dashboard/add-product/add-product').then(m=>m.AddProduct)},
-            {path:'order',loadComponent:()=> import('./components/seller-dashboard/view-orders/view-orders').then(m=>m.ViewOrders)}
+            {path:'orders',loadComponent:()=> import('./components/seller-dashboard/view-orders/view-orders').then(m=>m.ViewOrders)}
         ]
     },
     {path: 'register', loadComponent: () => import('./pages/register/register').then(m => m.Register)},
