@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { Product } from '../../view-models/product/product';
+import { GenericTypeResponse } from '../../view-models/generic-response/generic-response';
+import { SellerOrderVm } from '../../view-models/seller-order-vm/seller-order-vm';
 
 @Injectable({
   providedIn: 'root',
@@ -17,5 +19,8 @@ export class SellerService {
   }
   public updateProducts(products: any[]){
           return this._httpClient.put(`${environment.url}/Seller/Products`, products, {withCredentials:true})
+  }
+  public getOrders(){
+        return this._httpClient.get<GenericTypeResponse<SellerOrderVm[]>>(`${environment.url}/Seller/Orders`, {withCredentials:true});
   }
 }
