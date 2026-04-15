@@ -1,7 +1,7 @@
 import { Component, computed, effect, EventEmitter, inject, input, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { form, FormField } from '@angular/forms/signals';
-import { ReviewService } from '../../services/review/review-service';
+import { ReviewService } from '../../features/products/service/review-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-review-form',
